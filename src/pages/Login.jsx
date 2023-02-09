@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getUserToken } from '../services/api';
+import { requestApi } from '../redux/actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -26,6 +30,14 @@ export default class Login extends Component {
     } else {
       this.setState({ isDisabled: true });
     }
+  };
+
+  handleClick = async () => {
+    const { dispatch, history } = this.props;
+    const { token } = await getUserToken();
+    dispatch(requestApi(token));
+    localStorage.setItem('token', token);
+    history.push('/game');
   };
 
   render() {
@@ -54,11 +66,23 @@ export default class Login extends Component {
         <button
           type="button"
           data-testid="btn-play"
+          onClick={ this.handleClick }
           disabled={ isDisabled }
         >
-          Login
+          Play
         </button>
       </div>
     );
   }
 }
+
+// testando
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+export default connect()(Login);
