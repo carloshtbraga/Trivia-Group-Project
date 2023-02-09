@@ -76,6 +76,8 @@ class Login extends Component {
   }
 }
 
+// testando
+
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
