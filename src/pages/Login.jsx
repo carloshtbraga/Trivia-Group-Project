@@ -40,6 +40,11 @@ class Login extends Component {
     history.push('/game');
   };
 
+  handleClickToRedirect = (path) => {
+    const { history } = this.props;
+    history.push(path);
+  };
+
   render() {
     const { email, name, isDisabled } = this.state;
     return (
@@ -71,12 +76,17 @@ class Login extends Component {
         >
           Play
         </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ () => this.handleClickToRedirect('/config') }
+        >
+          Configuração
+        </button>
       </div>
     );
   }
 }
-
-// testando
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
