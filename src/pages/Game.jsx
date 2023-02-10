@@ -11,6 +11,7 @@ class Game extends Component {
     question: '',
     category: '',
     alternatives: [],
+    chosen: false,
     // questionsIndex: 0,
   };
 
@@ -35,6 +36,11 @@ class Game extends Component {
       category,
     });
   }
+
+  handleSelectAnswer = (event) => {
+    event.preventDefault();
+    this.setState({ chosen: true });
+  };
 
   handlerLogout = () => {
     const { dispatch, history } = this.props;
@@ -66,7 +72,7 @@ class Game extends Component {
   };
 
   render() {
-    const { alternatives, question, category } = this.state;
+    const { alternatives, question, category, chosen } = this.state;
 
     return (
       <div>
@@ -80,8 +86,14 @@ class Game extends Component {
         <label htmlFor="answers" data-testid="answer-options">
           {alternatives.map((element, index) => (
             <button
+              style={ chosen ? {
+                border: element.testid === 'correct-answer'
+                  ? '3px solid rgb(6, 240, 15)' : '3px solid red',
+              } : null }
               key={ index }
+              className="answerBtn"
               type="button"
+              onClick={ this.handleSelectAnswer }
               data-testid={ element.testid }
             >
               { element.answer }

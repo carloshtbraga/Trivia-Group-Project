@@ -1,7 +1,11 @@
-body {
-  box-sizing: border-box;
+* {
+  border: none;
   margin: 0;
   padding: 0;
+}
+
+body {
+  box-sizing: border-box;
 }
 
 .App {
@@ -19,6 +23,10 @@ body {
 
 .green-border {
   border: 1px solid green;
+}
+
+.answerBtn {
+  margin-left: 3px;
 }
 
 @media ( prefers-reduced-motion : no-preference ) {
