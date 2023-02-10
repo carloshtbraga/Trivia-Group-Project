@@ -1,5 +1,6 @@
 export const TOKEN = 'TOKEN';
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
 export const tokenAction = (token) => ({
   type: TOKEN,
@@ -14,4 +15,8 @@ export const loginAction = (gravatar, name) => ({
     gravatar,
     name,
   },
+});
+
+export const logoutAction = () => ({
+  type: LOGOUT,
 });

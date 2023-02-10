@@ -5,9 +5,9 @@ export async function getUserToken() {
   return data;
 }
 
-// export async function getGravatar(mailHash) {
-//   const url = `https://www.gravatar.com/avatar/${mailHash}`;
-//   const response = await fetch(url);
-//   const data = response.json();
-//   return data;
-// }
+export async function getQuestion(token) {
+  const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
+  const response = await fetch(url);
+  const data = response.json();
+  return data;
+}
