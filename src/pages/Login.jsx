@@ -40,9 +40,9 @@ class Login extends Component {
     history.push('/game');
   };
 
-  handleClickToRedirect = (path) => {
+  handleClickToRedirect = () => {
     const { history } = this.props;
-    history.push(path);
+    history.push('/config');
   };
 
   render() {
@@ -79,7 +79,7 @@ class Login extends Component {
         <button
           type="button"
           data-testid="btn-settings"
-          onClick={ () => this.handleClickToRedirect('/config') }
+          onClick={ this.handleClickToRedirect }
         >
           Configuração
         </button>
