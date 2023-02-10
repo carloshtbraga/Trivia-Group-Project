@@ -1,18 +1,107 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import { logoutAction } from '../redux/actions';
+import { getQuestion } from '../services/api';
 
-export default class Game extends Component {
+class Game extends Component {
+  state = {
+    // results: [],
+    question: '',
+    category: '',
+    alternatives: [],
+    // questionsIndex: 0,
+  };
+
+  async componentDidMount() {
+    const { token } = this.props;
+    const CODE = 0;
+    const { results, response_code: responseCode } = await getQuestion(token);
+    if (responseCode !== CODE) {
+      this.handlerLogout();
+      return;
+    }
+    const {
+      incorrect_answers: incorrectAnswers,
+      correct_answer: correctAnswer,
+      question,
+      category,
+    } = results[0];
+    const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
+    this.setState({
+      alternatives,
+      question,
+      category,
+    });
+  }
+
+  handlerLogout = () => {
+    const { dispatch, history } = this.props;
+    localStorage.clear();
+    dispatch(logoutAction);
+    history.push('/');
+  };
+
+  shuffleArray = (array) => {
+    const answers = array.map((value, index) => {
+      if (index === 0) {
+        return {
+          answer: value,
+          testid: 'correct-answer',
+        };
+      }
+      return {
+        answer: value,
+        testid: `wrong-answer-${index - 1}`,
+      };
+    });
+    for (let i = answers.length - 1; i > 0; i -= i) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = answers[i];
+      answers[i] = answers[j];
+      answers[j] = temp;
+    }
+    return answers;
+  };
+
   render() {
+    const { alternatives, question, category } = this.state;
+
     return (
       <div>
         <Header />
-        <h1
-          data-testid="btn-play"
-        >
-          Game
+        <h1 data-testid="question-text">
+          {question}
         </h1>
-
+        <h3 data-testid="question-category">
+          {category}
+        </h3>
+        <label htmlFor="answers" data-testid="answer-options">
+          {alternatives.map((element, index) => (
+            <button
+              key={ index }
+              type="button"
+              data-testid={ element.testid }
+            >
+              { element.answer }
+            </button>))}
+        </label>
       </div>
     );
   }
 }
+
+Game.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  token: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  token: state.loginReducer.token,
+});
+
+export default connect(mapStateToProps)(Game);

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { TOKEN, LOGIN } from '../actions';
+import { TOKEN, LOGIN, LOGOUT } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
@@ -26,6 +26,8 @@ const loginReducer = (state = INITIAL_STATE, action) => {
         score: '0',
       },
     };
+  case LOGOUT:
+    return INITIAL_STATE;
   default:
     return state;
   }

@@ -77,7 +77,7 @@ describe('01 Testes da página Login', () => {
     userEvent.click(playBtn);
     await waitFor(() => {
       expect(history.location.pathname).toBe('/game');
-      const gameH1 = screen.getByTestId('btn-play');
+      const gameH1 = screen.getByTestId('question-text');
       expect(gameH1).toBeInTheDocument();
     });
   });
