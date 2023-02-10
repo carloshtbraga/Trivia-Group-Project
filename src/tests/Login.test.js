@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, screen } from '@testing-library/react';
+import { cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import Login from '../pages/Login';
@@ -56,8 +56,16 @@ describe('01 Testes da página Login', () => {
     });
     expect(configH1).toBeInTheDocument();
   });
-  it('Verifica se há um botão play que direciona à página correta', () => {
-    renderWithRouterAndRedux(<App />, { initialEntries: ['/'] });
+  it('Verifica se há um botão play que direciona à página correta', async () => {
+    const responseToken = {
+      response_code: 0,
+      response_message: 'Token Generated Successfully!',
+      token: '9b60dbfbd4c9b6b00523a0b680d044983eed1ca3a0e3f1dcf35218f8721db978' };
+    const { history } = renderWithRouterAndRedux(<App />);
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(responseToken),
+    });
+
     const inputEmail = screen.getByTestId(email);
     const inputName = screen.getByTestId(name);
     const playBtn = screen.getByTestId('btn-play');
@@ -67,8 +75,10 @@ describe('01 Testes da página Login', () => {
     userEvent.type(inputName, 'Meu nome');
     expect(playBtn).toBeEnabled();
     userEvent.click(playBtn);
-
-    const gameH1 = screen.getByTestId('btn-play');
-    expect(gameH1).toBeInTheDocument();
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/game');
+      const gameH1 = screen.getByTestId('btn-play');
+      expect(gameH1).toBeInTheDocument();
+    });
   });
 });
