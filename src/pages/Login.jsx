@@ -35,14 +35,14 @@ class Login extends Component {
   handleClick = async () => {
     const { dispatch, history } = this.props;
     const { token } = await getUserToken();
-    dispatch(requestApi(token));
+    await dispatch(requestApi(token));
     localStorage.setItem('token', token);
     history.push('/game');
   };
 
-  handleClickToRedirect = (path) => {
+  handleClickToRedirect = () => {
     const { history } = this.props;
-    history.push(path);
+    history.push('/config');
   };
 
   render() {
@@ -79,7 +79,7 @@ class Login extends Component {
         <button
           type="button"
           data-testid="btn-settings"
-          onClick={ () => this.handleClickToRedirect('/config') }
+          onClick={ this.handleClickToRedirect }
         >
           Configuração
         </button>
