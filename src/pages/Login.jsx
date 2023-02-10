@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import md5 from 'crypto-js/md5';
 import { getUserToken } from '../services/api';
-import { requestApi } from '../redux/actions';
+import { loginAction, tokenAction } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -34,8 +35,12 @@ class Login extends Component {
 
   handleClick = async () => {
     const { dispatch, history } = this.props;
+    const { email, name } = this.state;
     const { token } = await getUserToken();
-    await dispatch(requestApi(token));
+    const mailHash = md5(email).toString();
+    const gravatar = `https://www.gravatar.com/avatar/${mailHash}`;
+    dispatch(tokenAction(token));
+    dispatch(loginAction(gravatar, name));
     localStorage.setItem('token', token);
     history.push('/game');
   };

@@ -4,3 +4,10 @@ export async function getUserToken() {
   const data = response.json();
   return data;
 }
+
+// export async function getGravatar(mailHash) {
+//   const url = `https://www.gravatar.com/avatar/${mailHash}`;
+//   const response = await fetch(url);
+//   const data = response.json();
+//   return data;
+// }
