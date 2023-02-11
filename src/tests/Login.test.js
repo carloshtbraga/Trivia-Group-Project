@@ -27,7 +27,7 @@ describe('01 Testes da página Login', () => {
   );
 
   it(
-    `Testa se ao preencher os campos com informações validase clicar no
+    `Testa se ao preencher os campos com informações validasse clicar no
     botão play ele redireciona.`,
     () => {
       renderWithRouterAndRedux(<Login />);
