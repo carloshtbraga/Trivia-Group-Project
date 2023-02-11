@@ -11,7 +11,9 @@ class Game extends Component {
     question: '',
     category: '',
     alternatives: [],
+    time: 30,
     chosen: false,
+    isDisabled: false,
     // questionsIndex: 0,
   };
 
@@ -35,7 +37,22 @@ class Game extends Component {
       question,
       category,
     });
+    this.handleTimer();
   }
+
+  handleTimer = () => {
+    const miliseconds = 1000;
+    this.interval = setInterval(() => {
+      this.setState((prevState) => {
+        const timer = prevState.time - 1;
+        if (timer === 0) {
+          clearInterval(this.interval);
+          return { time: timer, isDisabled: true };
+        }
+        return { time: timer };
+      });
+    }, miliseconds);
+  };
 
   handleSelectAnswer = (event) => {
     event.preventDefault();
@@ -72,7 +89,7 @@ class Game extends Component {
   };
 
   render() {
-    const { alternatives, question, category, chosen } = this.state;
+    const { alternatives, question, category, chosen, time, isDisabled } = this.state;
 
     return (
       <div>
@@ -95,13 +112,20 @@ class Game extends Component {
               type="button"
               onClick={ this.handleSelectAnswer }
               data-testid={ element.testid }
+              disabled={ isDisabled }
             >
               { element.answer }
             </button>))}
         </label>
+        <p>
+          {' '}
+          { time }
+          {' '}
+        </p>
       </div>
     );
   }
+  // comentario
 }
 
 Game.propTypes = {
