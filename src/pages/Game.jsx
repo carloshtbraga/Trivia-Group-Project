@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import { logoutAction } from '../redux/actions';
+import { logoutAction, sumScoreAction } from '../redux/actions';
 import { getQuestion } from '../services/api';
 
 class Game extends Component {
@@ -10,6 +10,8 @@ class Game extends Component {
     // results: [],
     question: '',
     category: '',
+    difficulty: '',
+    correctAnswer: '',
     alternatives: [],
     time: 30,
     chosen: false,
@@ -30,18 +32,21 @@ class Game extends Component {
       correct_answer: correctAnswer,
       question,
       category,
+      difficulty,
     } = results[0];
     const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
     this.setState({
       alternatives,
       question,
       category,
+      difficulty,
+      correctAnswer,
     });
     this.handleTimer();
   }
 
   handleTimer = () => {
-    const miliseconds = 1000;
+    const milliseconds = 1000;
     this.interval = setInterval(() => {
       this.setState((prevState) => {
         const timer = prevState.time - 1;
@@ -51,12 +56,44 @@ class Game extends Component {
         }
         return { time: timer };
       });
-    }, miliseconds);
+    }, milliseconds);
   };
 
   handleSelectAnswer = (event) => {
     event.preventDefault();
     this.setState({ chosen: true });
+    const { target: { innerHTML: selectedAnswer } } = event;
+    const { correctAnswer, difficulty, time } = this.state;
+    const { score, dispatch } = this.props;
+    const BASE_POINTS = 10;
+    const HARD_MULTIPLIER = 3;
+    const MEDIUM_MULTIPLIER = 2;
+    let newScore = score;
+    const correctChoice = selectedAnswer === correctAnswer;
+    if (correctChoice) {
+      switch (difficulty) {
+      case 'hard':
+      {
+        newScore = BASE_POINTS + (time * HARD_MULTIPLIER);
+        break;
+      }
+      case 'medium':
+      {
+        newScore += BASE_POINTS + (time * MEDIUM_MULTIPLIER);
+        break;
+      }
+      case 'easy':
+      {
+        newScore += BASE_POINTS + time;
+        break;
+      }
+      default:
+      {
+        break;
+      }
+      }
+    }
+    dispatch(sumScoreAction(newScore));
   };
 
   handlerLogout = () => {
@@ -125,7 +162,6 @@ class Game extends Component {
       </div>
     );
   }
-  // comentario
 }
 
 Game.propTypes = {
@@ -134,10 +170,12 @@ Game.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   token: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  token: state.loginReducer.token,
+  token: state.token,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Game);

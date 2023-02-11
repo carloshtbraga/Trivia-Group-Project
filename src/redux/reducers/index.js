@@ -1,12 +1,11 @@
-import { combineReducers } from 'redux';
-import { TOKEN, LOGIN, LOGOUT } from '../actions';
+import { TOKEN, LOGIN, LOGOUT, SCORE } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
   player: {
     gravatar: '',
     name: '',
-    score: '',
+    score: 0,
   },
 };
 
@@ -23,7 +22,15 @@ const loginReducer = (state = INITIAL_STATE, action) => {
       player: {
         gravatar: action.payload.gravatar,
         name: action.payload.name,
-        score: '0',
+        score: 0,
+      },
+    };
+  case SCORE:
+    return {
+      ...state,
+      player: {
+        ...state.player,
+        score: action.payload.newScore,
       },
     };
   case LOGOUT:
@@ -33,6 +40,4 @@ const loginReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-const rootReducer = combineReducers({ loginReducer });
-
-export default rootReducer;
+export default loginReducer;
