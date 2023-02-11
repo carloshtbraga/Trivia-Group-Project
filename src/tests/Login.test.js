@@ -37,6 +37,7 @@ describe('01 Testes da página Login', () => {
       expect(screen.getByText(/play/i)).toBeInTheDocument();
     },
   );
+  
   it('Testando se a rota está certa', () => {
     const initialEntries = ['/'];
     const { history } = renderWithRouterAndRedux(<Login />, { initialEntries });
@@ -44,6 +45,7 @@ describe('01 Testes da página Login', () => {
     const { pathname } = history.location;
     expect(pathname).toBe('/');
   });
+
   it('Verifica se há um botão de configurações e direciona à página correta', () => {
     renderWithRouterAndRedux(<App />, { initialEntries: ['/'] });
 
@@ -56,6 +58,7 @@ describe('01 Testes da página Login', () => {
     });
     expect(configH1).toBeInTheDocument();
   });
+
   it('Verifica se há um botão play que direciona à página correta', async () => {
     const responseToken = {
       response_code: 0,
