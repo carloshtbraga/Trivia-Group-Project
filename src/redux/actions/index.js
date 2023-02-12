@@ -1,6 +1,7 @@
 export const TOKEN = 'TOKEN';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const SCORE = 'SCORE';
 
 export const tokenAction = (token) => ({
   type: TOKEN,
@@ -14,6 +15,13 @@ export const loginAction = (gravatar, name) => ({
   payload: {
     gravatar,
     name,
+  },
+});
+
+export const sumScoreAction = (newScore) => ({
+  type: SCORE,
+  payload: {
+    newScore,
   },
 });
 
