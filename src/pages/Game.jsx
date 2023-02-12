@@ -125,7 +125,6 @@ class Game extends Component {
       </div>
     );
   }
-  // comentario
 }
 
 Game.propTypes = {
@@ -137,7 +136,7 @@ Game.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  token: state.loginReducer.token,
+  token: state.token,
 });
 
 export default connect(mapStateToProps)(Game);
