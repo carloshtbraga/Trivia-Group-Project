@@ -1,4 +1,3 @@
-
 import { TOKEN, LOGIN, LOGOUT, SCORE } from '../actions';
 
 const INITIAL_STATE = {

@@ -177,5 +177,5 @@ const mapStateToProps = (state) => ({
   token: state.token,
   score: state.player.score,
 });
- 
+
 export default connect(mapStateToProps)(Game);
