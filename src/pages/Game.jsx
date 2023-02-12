@@ -125,7 +125,6 @@ class Game extends Component {
       </div>
     );
   }
-  // comentario
 }
 
 Game.propTypes = {
