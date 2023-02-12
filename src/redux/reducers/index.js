@@ -1,11 +1,13 @@
+
 import { TOKEN, LOGIN, LOGOUT, SCORE } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
   player: {
-    gravatar: '',
     name: '',
     score: 0,
+    assertions: '',
+    gravatarEmail: '',
   },
 };
 
@@ -20,7 +22,7 @@ const loginReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       player: {
-        gravatar: action.payload.gravatar,
+        gravatarEmail: action.payload.gravatar,
         name: action.payload.name,
         score: 0,
       },
