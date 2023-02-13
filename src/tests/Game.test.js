@@ -35,7 +35,19 @@ describe('01 Testes da página GAME', () => {
       expect(questionH1).toBeInTheDocument();
       expect(categoryH3).toBeInTheDocument();
       expect(answerButtons).toBeInTheDocument();
-      
-
     });
+    it(
+      '',
+     async () => {
+        renderWithRouterAndRedux(<Game />);
+        const correctquestion = await screen.findByTestId('correct-answer', { }, {timeout:4000});
+
+        userEvent.click(correctquestion);
+        await waitFor(() => {
+          expect(screen.getByTestId('header-score')).not.toBe(0)
+        });
+        
+      });
+
+
 });
