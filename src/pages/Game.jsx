@@ -48,13 +48,14 @@ class Game extends Component {
   }
 
   handleTimer = () => {
+    clearInterval(this.interval);
     const milliseconds = 1000;
     this.interval = setInterval(() => {
       this.setState((prevState) => {
         const timer = prevState.time - 1;
         if (timer === 0) {
           clearInterval(this.interval);
-          return { time: timer, isDisabled: true };
+          return { time: 30, isDisabled: true, chosen: true };
         }
         return { time: timer };
       });
@@ -63,19 +64,22 @@ class Game extends Component {
 
   btnNext = () => {
     const { history } = this.props;
-    const { questionsIndex, questions } = this.state;
-    const gameIndexLength = 5;
-    if (questionsIndex === gameIndexLength) history.push('/feedback');
     this.setState((prevState) => ({
       questionsIndex: prevState.questionsIndex + 1,
     }));
+    const { questionsIndex, questions } = this.state;
+    const gameIndexLength = 4;
+    if (questionsIndex === gameIndexLength) {
+      history.push('/feedback');
+      return;
+    }
     const {
       incorrect_answers: incorrectAnswers,
       correct_answer: correctAnswer,
       question,
       category,
       difficulty,
-    } = questions[questionsIndex];
+    } = questions[questionsIndex + 1];
     const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
     this.setState({
       alternatives,
@@ -85,7 +89,9 @@ class Game extends Component {
       correctAnswer,
       chosen: false,
       isDisabled: false,
+      time: 30,
     });
+    this.handleTimer();
   };
 
   handleSelectAnswer = (event) => {
@@ -103,7 +109,7 @@ class Game extends Component {
       switch (difficulty) {
       case 'hard':
       {
-        newScore = BASE_POINTS + (time * HARD_MULTIPLIER);
+        newScore += BASE_POINTS + (time * HARD_MULTIPLIER);
         break;
       }
       case 'medium':
@@ -145,11 +151,12 @@ class Game extends Component {
         testid: `wrong-answer-${index - 1}`,
       };
     });
-    for (let i = answers.length - 1; i > 0; i -= i) {
+    for (let i = answers.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
-      const temp = answers[i];
-      answers[i] = answers[j];
-      answers[j] = temp;
+      [
+        answers[i],
+        answers[j],
+      ] = [answers[j], answers[i]];
     }
     return answers;
   };
