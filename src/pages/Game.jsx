@@ -7,7 +7,7 @@ import { getQuestion } from '../services/api';
 
 class Game extends Component {
   state = {
-    // results: [],
+    questions: [],
     question: '',
     category: '',
     difficulty: '',
@@ -16,11 +16,12 @@ class Game extends Component {
     time: 30,
     chosen: false,
     isDisabled: false,
-    // questionsIndex: 0,
+    questionsIndex: 0,
   };
 
   async componentDidMount() {
     const { token } = this.props;
+    const { questionsIndex } = this.state;
     const CODE = 0;
     const { results, response_code: responseCode } = await getQuestion(token);
     if (responseCode !== CODE) {
@@ -33,7 +34,7 @@ class Game extends Component {
       question,
       category,
       difficulty,
-    } = results[0];
+    } = results[questionsIndex];
     const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
     this.setState({
       alternatives,
@@ -41,6 +42,7 @@ class Game extends Component {
       category,
       difficulty,
       correctAnswer,
+      questions: results,
     });
     this.handleTimer();
   }
@@ -59,9 +61,36 @@ class Game extends Component {
     }, milliseconds);
   };
 
+  btnNext = () => {
+    const { history } = this.props;
+    const { questionsIndex, questions } = this.state;
+    const gameIndexLength = 5;
+    if (questionsIndex === gameIndexLength) history.push('/feedback');
+    this.setState((prevState) => ({
+      questionsIndex: prevState.questionsIndex + 1,
+    }));
+    const {
+      incorrect_answers: incorrectAnswers,
+      correct_answer: correctAnswer,
+      question,
+      category,
+      difficulty,
+    } = questions[questionsIndex];
+    const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
+    this.setState({
+      alternatives,
+      question,
+      category,
+      difficulty,
+      correctAnswer,
+      chosen: false,
+      isDisabled: false,
+    });
+  };
+
   handleSelectAnswer = (event) => {
     event.preventDefault();
-    this.setState({ chosen: true });
+    this.setState({ chosen: true, isDisabled: true });
     const { target: { innerHTML: selectedAnswer } } = event;
     const { correctAnswer, difficulty, time } = this.state;
     const { score, dispatch } = this.props;
@@ -159,6 +188,19 @@ class Game extends Component {
           { time }
           {' '}
         </p>
+
+        {
+          (chosen === true)
+            ? (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.btnNext }
+              >
+                Prox
+              </button>)
+            : <h4>{ time }</h4>
+        }
       </div>
     );
   }
