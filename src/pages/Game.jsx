@@ -7,7 +7,6 @@ import { getQuestion } from '../services/api';
 
 class Game extends Component {
   state = {
-    // results: [],
     question: '',
     category: '',
     difficulty: '',
@@ -16,7 +15,7 @@ class Game extends Component {
     time: 30,
     chosen: false,
     isDisabled: false,
-    // questionsIndex: 0,
+    questionsIndex: 0,
   };
 
   async componentDidMount() {
@@ -58,6 +57,18 @@ class Game extends Component {
       });
     }, milliseconds);
   };
+
+  btnNext = () => {
+    const { history } = this.props;
+    const { questionsIndex } = this.state;
+    const gameIndexLength = 4;
+    this.setState((prevState) => ({
+      questionsIndex: prevState.questionsIndex + 1,
+    }));
+    if (questionsIndex === gameIndexLength) history.push('/feedback');
+  };
+
+  // comentario
 
   handleSelectAnswer = (event) => {
     event.preventDefault();
@@ -159,6 +170,19 @@ class Game extends Component {
           { time }
           {' '}
         </p>
+
+        {
+          (chosen === true)
+            ? (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.btnNext }
+              >
+                Prox
+              </button>)
+            : <h4>{ time }</h4>
+        }
       </div>
     );
   }
