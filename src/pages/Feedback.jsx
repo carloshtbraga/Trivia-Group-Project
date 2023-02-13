@@ -64,4 +64,4 @@ Feedback.propTypes = {
 
 // Falta criar o CASE no reducer e trazer o mapStateToProps
 
-connect()(Feedback);
+// connect()(Feedback);
