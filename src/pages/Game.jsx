@@ -7,6 +7,7 @@ import { getQuestion } from '../services/api';
 
 class Game extends Component {
   state = {
+    questions: [],
     question: '',
     category: '',
     difficulty: '',
@@ -20,6 +21,7 @@ class Game extends Component {
 
   async componentDidMount() {
     const { token } = this.props;
+    const { questionsIndex } = this.state;
     const CODE = 0;
     const { results, response_code: responseCode } = await getQuestion(token);
     if (responseCode !== CODE) {
@@ -32,7 +34,7 @@ class Game extends Component {
       question,
       category,
       difficulty,
-    } = results[0];
+    } = results[questionsIndex];
     const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
     this.setState({
       alternatives,
@@ -40,6 +42,7 @@ class Game extends Component {
       category,
       difficulty,
       correctAnswer,
+      questions: results,
     });
     this.handleTimer();
   }
@@ -60,19 +63,34 @@ class Game extends Component {
 
   btnNext = () => {
     const { history } = this.props;
-    const { questionsIndex } = this.state;
-    const gameIndexLength = 4;
+    const { questionsIndex, questions } = this.state;
+    const gameIndexLength = 5;
+    if (questionsIndex === gameIndexLength) history.push('/feedback');
     this.setState((prevState) => ({
       questionsIndex: prevState.questionsIndex + 1,
     }));
-    if (questionsIndex === gameIndexLength) history.push('/feedback');
+    const {
+      incorrect_answers: incorrectAnswers,
+      correct_answer: correctAnswer,
+      question,
+      category,
+      difficulty,
+    } = questions[questionsIndex];
+    const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
+    this.setState({
+      alternatives,
+      question,
+      category,
+      difficulty,
+      correctAnswer,
+      chosen: false,
+      isDisabled: false,
+    });
   };
-
-  // comentario
 
   handleSelectAnswer = (event) => {
     event.preventDefault();
-    this.setState({ chosen: true });
+    this.setState({ chosen: true, isDisabled: true });
     const { target: { innerHTML: selectedAnswer } } = event;
     const { correctAnswer, difficulty, time } = this.state;
     const { score, dispatch } = this.props;
