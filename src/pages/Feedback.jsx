@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Feedback extends Component {
+class Feedback extends Component {
   // ComponentDidMount() {     ????
   //    dispatch(CASE)         ????
   // }                         ????
@@ -10,25 +11,34 @@ export default class Feedback extends Component {
     history.push('/');
   };
 
-  scoorePage = () => {
+  scorePage = () => {
     const { history } = this.props; // Logica do botão que redireciona para a página de ranking
     history.push('/ranking');
   };
 
   render() {
+    const { gravatarEmail, name, score } = this.props;
     return (
       <div>
         <header>
           <img
-            src="header-profile"
+            src={ gravatarEmail }
             alt="header-profile"
             data-testid="header-profile-picture"
-            // Falta puxar essas informações do estado global
           />
-          <h1 data-testid="header-player-name">Nome</h1>
-          {/* Falta puxar o nome do estado */}
-          <h2 data-testid="header-score">Scoore</h2>
-          {/* Falta puxar o scoore do estado */}
+          <h1 data-testid="header-player-name">
+            Nome:
+            { ' ' }
+            { name }
+          </h1>
+
+          <p>
+            Score:
+            <span data-testid="header-score">
+              {score}
+            </span>
+          </p>
+
         </header>
         <main>
           <p data-testid="feedback-text" />
@@ -47,9 +57,9 @@ export default class Feedback extends Component {
           <button
             type="button"
             data-testid="btn-ranking"
-            onClick={ this.scoorePage } // Redireciona para a página de Ranking
+            onClick={ this.scorePage } // Redireciona para a página de Ranking
           >
-            scoorePage
+            scorePage
           </button>
         </main>
       </div>
@@ -57,7 +67,16 @@ export default class Feedback extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  gravatarEmail: state.player.gravatarEmail,
+  name: state.player.name,
+  score: state.player.score,
+});
+
 Feedback.propTypes = {
+  score: PropTypes.number.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
@@ -65,4 +84,4 @@ Feedback.propTypes = {
 
 // Falta criar o CASE no reducer e trazer o mapStateToProps
 
-// connect()(Feedback);
+export default connect(mapStateToProps)(Feedback);
