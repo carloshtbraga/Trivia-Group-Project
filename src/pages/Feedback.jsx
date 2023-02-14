@@ -6,13 +6,14 @@ class Feedback extends Component {
   // ComponentDidMount() {     ????
   //    dispatch(CASE)         ????
   // }                         ????
+
   playAgain = () => {
-    const { history } = this.props; // Logica do botão que redireciona para jogar novamente
+    const { history } = this.props;
     history.push('/');
   };
 
   scorePage = () => {
-    const { history } = this.props; // Logica do botão que redireciona para a página de ranking
+    const { history } = this.props;
     history.push('/ranking');
   };
 
@@ -90,7 +91,7 @@ Feedback.propTypes = {
   name: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
-  }),
-}.isRequired;
+  }).isRequired,
+};
 
 export default connect(mapStateToProps)(Feedback);
