@@ -1,4 +1,4 @@
-import Game from './Game';
+import Game from './game/Game';
 import Login from './login/Login';
 import Config from './Config';
 import Feedback from './Feedback';

@@ -1,0 +1,44 @@
+:root {
+
+  --gold: #f9ba18;
+
+}
+
+.header-component {
+  background-color: white;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 2vh 6vw;
+}
+
+.profile-box {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.profile-img {
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  margin-right: 6px;
+  width: 35px;
+}
+
+.profile-name {
+  font-weight: bold;
+}
+
+.star-icon {
+  color: var(--gold);
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.label-score {
+  margin-right: 6px;
+}
+
+.profile-score {
+  font-weight: bold;
+}

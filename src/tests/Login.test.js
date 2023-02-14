@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import Login from '../pages/login/Login';
+import { Login } from '../pages';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 
 afterEach(cleanup);

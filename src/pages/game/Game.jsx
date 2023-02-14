@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
-import { logoutAction, sumScoreAction, addAssertionsAction } from '../redux/actions';
-import { getQuestion } from '../services/api';
+import { Header } from '../../components';
+import { logoutAction, sumScoreAction, addAssertionsAction } from '../../redux/actions';
+import { getQuestion } from '../../services/api';
+
+import './game.css';
 
 class Game extends Component {
   state = {
@@ -166,7 +168,7 @@ class Game extends Component {
     const { alternatives, question, category, chosen, time, isDisabled } = this.state;
 
     return (
-      <div>
+      <main className="game-page">
         <Header />
         <h1 data-testid="question-text">
           {question}
@@ -209,7 +211,7 @@ class Game extends Component {
               </button>)
             : <h4>{ time }</h4>
         }
-      </div>
+      </main>
     );
   }
 }
