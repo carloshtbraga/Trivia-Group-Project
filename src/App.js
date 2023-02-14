@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Login, Game, Config } from './pages';
-import Feedback from './pages/Feedback';
-import Ranking from './pages/Ranking';
+import { Login, Game, Config, Feedback, Ranking } from './pages';
 
 export default function App() {
   return (
