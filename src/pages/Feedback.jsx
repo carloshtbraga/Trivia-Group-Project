@@ -47,8 +47,14 @@ class Feedback extends Component {
               assertions < THREE_ASSERTIONS ? 'Could be better...' : 'Well Done!'
             }
           </p>
-          <p data-testid="feedback-total-score">Total Score</p>
-          <p data-testid="feedback-total-question">Total Questions</p>
+          <p>
+            Pontuação Total:
+            <span data-testid="feedback-total-score">{score}</span>
+          </p>
+          <p>
+            Total de Acertos:
+            <span data-testid="feedback-total-question">{assertions}</span>
+          </p>
           <br />
           <button
             type="button"
