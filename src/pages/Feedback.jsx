@@ -3,9 +3,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Feedback extends Component {
-  // ComponentDidMount() {     ????
-  //    dispatch(CASE)         ????
-  // }                         ????
+  componentDidMount() {
+    const { gravatarEmail, name, score } = this.props;
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+    if (!ranking) {
+      localStorage.setItem('ranking', JSON.stringify([]));
+      ranking = JSON.parse(localStorage.getItem('ranking'));
+    }
+    const newRanking = [...ranking, { gravatarEmail, name, score }];
+    localStorage.setItem('ranking', JSON.stringify(newRanking));
+  }
 
   playAgain = () => {
     const { history } = this.props;

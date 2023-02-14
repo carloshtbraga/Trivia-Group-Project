@@ -134,7 +134,7 @@ class Game extends Component {
 
   handlerLogout = () => {
     const { dispatch, history } = this.props;
-    localStorage.clear();
+    localStorage.removeItem('token');
     dispatch(logoutAction);
     history.push('/');
   };
