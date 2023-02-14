@@ -3,16 +3,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Feedback extends Component {
-  // ComponentDidMount() {     ????
-  //    dispatch(CASE)         ????
-  // }                         ????
+  componentDidMount() {
+    const { gravatarEmail, name, score } = this.props;
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+    if (!ranking) {
+      localStorage.setItem('ranking', JSON.stringify([]));
+      ranking = JSON.parse(localStorage.getItem('ranking'));
+    }
+    const newRanking = [...ranking, { gravatarEmail, name, score }];
+    localStorage.setItem('ranking', JSON.stringify(newRanking));
+  }
+
   playAgain = () => {
-    const { history } = this.props; // Logica do botão que redireciona para jogar novamente
+    const { history } = this.props;
     history.push('/');
   };
 
   scorePage = () => {
-    const { history } = this.props; // Logica do botão que redireciona para a página de ranking
+    const { history } = this.props;
     history.push('/ranking');
   };
 
@@ -90,7 +98,7 @@ Feedback.propTypes = {
   name: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
-  }),
-}.isRequired;
+  }).isRequired,
+};
 
 export default connect(mapStateToProps)(Feedback);
