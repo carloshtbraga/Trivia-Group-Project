@@ -31,6 +31,7 @@ export default class Feedback extends Component {
           {/* Falta puxar o scoore do estado */}
         </header>
         <main>
+          <p data-testid="feedback-text" />
           <p data-testid="feedback-total-score">Total Score</p>
           {/* Falta lógica */}
           <p data-testid="feedback-total-question">Total Questions</p>
