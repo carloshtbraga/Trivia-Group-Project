@@ -1,11 +1,11 @@
-import { TOKEN, LOGIN, LOGOUT, SCORE } from '../actions';
+import { TOKEN, LOGIN, LOGOUT, SCORE, ADD_ASSERTIONS } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
   player: {
     name: '',
     score: 0,
-    assertions: '',
+    assertions: 0,
     gravatarEmail: '',
   },
 };
@@ -24,6 +24,7 @@ const loginReducer = (state = INITIAL_STATE, action) => {
         gravatarEmail: action.payload.gravatar,
         name: action.payload.name,
         score: 0,
+        assertions: 0,
       },
     };
   case SCORE:
@@ -32,6 +33,14 @@ const loginReducer = (state = INITIAL_STATE, action) => {
       player: {
         ...state.player,
         score: action.payload.newScore,
+      },
+    };
+  case ADD_ASSERTIONS:
+    return {
+      ...state,
+      player: {
+        ...state.player,
+        assertions: state.player.assertions + 1,
       },
     };
   case LOGOUT:
