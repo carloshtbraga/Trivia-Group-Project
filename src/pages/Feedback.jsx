@@ -17,7 +17,8 @@ class Feedback extends Component {
   };
 
   render() {
-    const { gravatarEmail, name, score } = this.props;
+    const { gravatarEmail, name, score, assertions } = this.props;
+    const THREE_ASSERTIONS = 3;
     return (
       <div>
         <header>
@@ -41,11 +42,13 @@ class Feedback extends Component {
 
         </header>
         <main>
-          <p data-testid="feedback-text" />
+          <p data-testid="feedback-text">
+            {
+              assertions < THREE_ASSERTIONS ? 'Could be better...' : 'Well Done!'
+            }
+          </p>
           <p data-testid="feedback-total-score">Total Score</p>
-          {/* Falta lógica */}
           <p data-testid="feedback-total-question">Total Questions</p>
-          {/* Falta lógica */}
           <br />
           <button
             type="button"
@@ -68,12 +71,14 @@ class Feedback extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  assertions: state.player.assertions,
   gravatarEmail: state.player.gravatarEmail,
   name: state.player.name,
   score: state.player.score,
 });
 
 Feedback.propTypes = {
+  assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -81,7 +86,5 @@ Feedback.propTypes = {
     push: PropTypes.func,
   }),
 }.isRequired;
-
-// Falta criar o CASE no reducer e trazer o mapStateToProps
 
 export default connect(mapStateToProps)(Feedback);

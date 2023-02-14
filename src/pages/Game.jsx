@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import { logoutAction, sumScoreAction } from '../redux/actions';
+import { logoutAction, sumScoreAction, addAssertionsAction } from '../redux/actions';
 import { getQuestion } from '../services/api';
 
 class Game extends Component {
@@ -127,6 +127,7 @@ class Game extends Component {
         break;
       }
       }
+      dispatch(addAssertionsAction());
     }
     dispatch(sumScoreAction(newScore));
   };
