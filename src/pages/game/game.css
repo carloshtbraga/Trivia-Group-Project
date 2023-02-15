@@ -74,6 +74,7 @@
   background-color: white;
   border: 3px solid var(--gold);
   border-radius: 28px;
+  cursor: pointer;
   margin-bottom: 20px;
   min-width: 30vw;
   padding: 8px 12px;
@@ -87,6 +88,7 @@
   background-color: var(--green);
   border-radius: 6px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
   margin-top: 30px;
   min-width: 30vw;
   padding: 8px 12px;
