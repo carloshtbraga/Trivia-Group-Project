@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
-import { logoutAction, sumScoreAction, addAssertionsAction } from '../redux/actions';
-import { getQuestion } from '../services/api';
+import { IoMdStopwatch } from 'react-icons/io';
+import { Header } from '../../components';
+import { logoutAction, sumScoreAction, addAssertionsAction } from '../../redux/actions';
+import { getQuestion } from '../../services/api';
+import logoImg from '../../images/logo_trivia.png';
+
+import './game.css';
 
 class Game extends Component {
   state = {
@@ -35,7 +39,10 @@ class Game extends Component {
       category,
       difficulty,
     } = results[questionsIndex];
-    const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
+    const alternatives = this.shuffleArray([
+      correctAnswer,
+      ...incorrectAnswers,
+    ]);
     this.setState({
       alternatives,
       question,
@@ -80,7 +87,10 @@ class Game extends Component {
       category,
       difficulty,
     } = questions[questionsIndex + 1];
-    const alternatives = this.shuffleArray([correctAnswer, ...incorrectAnswers]);
+    const alternatives = this.shuffleArray([
+      correctAnswer,
+      ...incorrectAnswers,
+    ]);
     this.setState({
       alternatives,
       question,
@@ -166,50 +176,56 @@ class Game extends Component {
     const { alternatives, question, category, chosen, time, isDisabled } = this.state;
 
     return (
-      <div>
+      <>
         <Header />
-        <h1 data-testid="question-text">
-          {question}
-        </h1>
-        <h3 data-testid="question-category">
-          {category}
-        </h3>
-        <label htmlFor="answers" data-testid="answer-options">
-          {alternatives.map((element, index) => (
-            <button
-              style={ chosen ? {
-                border: element.testid === 'correct-answer'
-                  ? '3px solid rgb(6, 240, 15)' : '3px solid red',
-              } : null }
-              key={ index }
-              className="answerBtn"
-              type="button"
-              onClick={ this.handleSelectAnswer }
-              data-testid={ element.testid }
-              disabled={ isDisabled }
-            >
-              { element.answer }
-            </button>))}
-        </label>
-        <p>
-          {' '}
-          { time }
-          {' '}
-        </p>
-
-        {
-          (chosen === true)
-            ? (
+        <main className="game-page">
+          <section className="question-box">
+            <img className="question-logo-img" src={ logoImg } alt="Logo Trivia" />
+            <h1 className="question-category" data-testid="question-category">
+              {category}
+            </h1>
+            <h2 className="question-text" data-testid="question-text">
+              {question}
+            </h2>
+            <p className="question-time">
+              <IoMdStopwatch className="timer-icon" />
+              <p className="time-label">Tempo:</p>
+              <span className="timer">{ time }</span>
+              s
+            </p>
+          </section>
+          <section className="answer-section">
+            {alternatives.map((element, index) => (
               <button
+                style={ chosen ? {
+                  border: element.testid === 'correct-answer'
+                    ? '3px solid rgb(6, 240, 15)' : '3px solid red',
+                } : null }
+                key={ index }
+                className="answerBtn"
                 type="button"
-                data-testid="btn-next"
-                onClick={ this.btnNext }
+                onClick={ this.handleSelectAnswer }
+                data-testid={ element.testid }
+                disabled={ isDisabled }
               >
-                Prox
-              </button>)
-            : <h4>{ time }</h4>
-        }
-      </div>
+                { element.answer }
+              </button>))}
+            {
+              (chosen === true)
+                ? (
+                  <button
+                    type="button"
+                    className="btn-next"
+                    data-testid="btn-next"
+                    onClick={ this.btnNext }
+                  >
+                    Proximo
+                  </button>)
+                : ''
+            }
+          </section>
+        </main>
+      </>
     );
   }
 }

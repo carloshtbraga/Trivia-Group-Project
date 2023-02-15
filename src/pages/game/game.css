@@ -1,0 +1,93 @@
+:root {
+
+  --gold: #f9ba18;
+
+  --green: #2fc18c;
+
+}
+
+.game-page {
+  align-items: center;
+  background-image: url('../../images/background.png');
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+  justify-content: space-around;
+  width: 100vw;
+}
+
+.question-box {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 240px;
+  justify-content: space-between;
+  padding: 16px 24px;
+  width: 420px;
+}
+
+.question-logo-img {
+  height: 30vh;
+  position: absolute;
+  top: 25px;
+}
+
+.question-category {
+  background-color: var(--gold);
+  border-radius: 12px;
+  bottom: 28px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 24px;
+  position: relative;
+  text-align: center;
+  width: 90%;
+}
+
+.question-text {
+  font-size: x-large;
+  text-align: center;
+}
+
+.question-time {
+  align-items: center;
+  color: tomato;
+  display: flex;
+  font-weight: 800;
+  justify-content: center;
+  position: relative;
+  top: 2px;
+}
+
+.time-label {
+  margin: 0 5px;
+}
+
+.answer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.answerBtn {
+  background-color: white;
+  border: 3px solid var(--gold);
+  border-radius: 28px;
+  margin-bottom: 20px;
+  min-width: 30vw;
+  padding: 8px 12px;
+}
+
+.answerBtn:disabled {
+  color: black;
+}
+
+.btn-next {
+  background-color: var(--green);
+  border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 30px;
+  min-width: 30vw;
+  padding: 8px 12px;
+}

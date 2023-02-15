@@ -2,6 +2,8 @@
   background-color: transparent;
   border: none;
   box-sizing: border-box;
+  font-size: medium;
+  font-weight: 400;
   margin: 0;
   padding: 0;
 }
