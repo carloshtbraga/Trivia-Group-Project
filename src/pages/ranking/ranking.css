@@ -1,0 +1,123 @@
+:root {
+
+  --green: #2fc18c;
+
+  --purple: #3c1b7a;
+
+  --gray: #ebebeb;
+
+  --gold: #f9ba18;
+
+}
+
+.ranking-page {
+  align-items: center;
+  background-color: var(--purple);
+  background-image: url('../../images/background.png');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.ranking-box {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 100px;
+  width: 490px;
+}
+
+.ranking-logo-img {
+  bottom: 85px;
+  height: 175px;
+  position: relative;
+}
+
+.ranking-title {
+  align-items: center;
+  bottom: 80px;
+  color: var(--purple);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 150%;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ranking-list {
+  bottom: 70px;
+  position: relative;
+}
+
+.ranking-item {
+  align-items: center;
+  background-color: var(--gray);
+  border-radius: 28px;
+  display: flex;
+  height: 55px;
+  justify-content: space-between;
+  margin-bottom: 13px;
+  padding-left: 10px;
+  width: 390px;
+}
+
+.block-identify {
+  align-items: center;
+  display: flex;
+}
+
+.profile-ranking-img {
+  border-radius: 50%;
+  margin-right: 13px;
+  width: 37px;
+}
+
+.block-score {
+  align-items: center;
+  background-color: white;
+  border-radius: 27.5px;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 55px;
+  justify-content: space-around;
+  width: 185px;
+}
+
+.ranking-star-icon {
+  color: var(--gold);
+  font-size: 30px;
+}
+
+.ranking-score {
+  font-weight: 600;
+}
+
+.score-label {
+  margin-right: 30px;
+}
+
+.btn-go-home {
+  background-color: var(--green);
+  border-radius: 5px;
+  bottom: 40px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  height: 45px;
+  letter-spacing: 0.12em;
+  line-height: 150%;
+  position: relative;
+  text-transform: uppercase;
+  width: 390px;
+}
