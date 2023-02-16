@@ -1,0 +1,116 @@
+:root {
+
+  --blue: #00d5e2;
+
+  --green: #2fc18c;
+
+  --gray: #b5b5b5;
+
+}
+
+.feedback-page {
+  align-items: center;
+  background-image: url('../../images/background.png');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-around;
+  width: 100vw;
+}
+
+.feedback-logo-img {
+  height: 15vh;
+}
+
+.feedback-card {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 440px;
+}
+
+.feedback-profile-img {
+  border: 4px solid;
+  border-radius: 50%;
+  bottom: 85px;
+  position: relative;
+  width: 140px;
+}
+
+.feedback-info-header {
+  align-items: center;
+  bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 70%;
+}
+
+.header-player-name, .header-player-score {
+  font-weight: 600;
+}
+
+.player-name, .header-score {
+  margin-left: 10px;
+}
+
+.header-player-score {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.feedback-message {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 150%;
+  text-transform: uppercase;
+}
+
+.feedback-info {
+  color: var(--gray);
+  line-height: 150%;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.feedback-assertions, .feedback-score {
+  font-weight: 600;
+}
+
+.assertions, .score {
+  margin-left: 8px;
+}
+
+.feedback-options {
+  bottom: 70px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 440px;
+}
+
+.btn-play-again, .btn-ranking {
+  border-radius: 5px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  height: 45px;
+  line-height: 150%;
+  text-align: center;
+  text-transform: uppercase;
+  width: 210px;
+}
+
+.btn-play-again {
+  background-color: var(--green);
+}
+
+.btn-ranking {
+  background-color: var(--blue);
+}
