@@ -194,7 +194,10 @@ class Game extends Component {
               s
             </p>
           </section>
-          <section className="answer-section">
+          <section
+            data-testid="answer-options"
+            className="answer-section"
+          >
             {alternatives.map((element, index) => (
               <button
                 style={ chosen ? {
