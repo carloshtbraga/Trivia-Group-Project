@@ -7,7 +7,7 @@
   <a href="#contato">Contato</a>
 </p>
 <h1 align='center'>
-  <img src='https://keyholesoftware.com/wp-content/uploads/React-Redux.png.webp' width="350" heigth="350"/>
+  <img src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2F2%2F27%2FTrivia.png&f=1&nofb=1&ipt=e784c1a70318e1a1e0f997ef6a309fea2b2a8c4c6c2a7407608d7af8ced2d07a&ipo=images' width="350" heigth="350"/>
 </h1>
 
 
