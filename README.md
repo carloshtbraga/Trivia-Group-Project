@@ -30,9 +30,6 @@
 
 <h1 align='center'>Como executar o projeto</h1>
 
-
-<p align='center'>Antes de tudo, você precisa ter o Docker e o Docker Compose instalados na sua máquina.</p>
-
 <p align='center'>Com tudo instalado, siga os passos abaixo para executar o projeto:</p>
 
 ```bash
